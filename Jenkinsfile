@@ -1,22 +1,24 @@
 pipeline {
-   agent any
-   stages {  
-      stage('NPM Install') {
-         steps {
-            bat 'npm install'
-         }
-      }
-      parallel {
-        stage('Run npm audit tests') {
+    agent any
+    stages {
+        stage('NPM Install') {
             steps {
-                bat 'npm audit'
+                bat 'npm install'
             }
         }
-        stage('Execute tests') {
-            steps {
-                bat 'npm test'
+        stage('Parallel Execution') {
+            parallel {
+                stage('Run npm audit tests') {
+                    steps {
+                        bat 'npm audit'
+                    }
+                }
+                stage('Execute tests') {
+                    steps {
+                        bat 'npm test'
+                    }
+                }
             }
         }
-      }
-   }
+    }
 }
