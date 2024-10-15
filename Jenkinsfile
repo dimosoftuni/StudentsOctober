@@ -5,8 +5,6 @@ pipeline {
          steps {
             bat 'npm install'
          }
-      }
-      stage('Execute tests') {
          steps {
             bat 'npm test'
          }
